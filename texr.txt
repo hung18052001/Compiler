@@ -1,0 +1,8 @@
+Lexical analysis is the very first phase in the compiler designing
+Lexemes and Tokens are the sequence of characters that are included in the source program according to the matching pattern of a token
+Lexical analyzer is implemented to scan the entire source code of the program
+Lexical analyzer helps to identify token into the symbol table
+A character sequence which is not possible to scan into any valid token is a lexical error
+Removes one character from the remaining input is useful Error recovery method
+Lexical Analyser scan the input program while parser perform syntax analysis
+It eases the process of lexical analysis and the syntax analysis by eliminating unwanted tokens
