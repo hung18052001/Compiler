@@ -1,13 +1,15 @@
 import re
 f = open('sample.txt', 'r', encoding='UTF-8')
 text = f.read()
-whitespace = re.compile(r'[\s]]+')
+whitespace = re.compile(r'(\s)+')
+function = re.compile(r'[_a-zA-Z][a-zA-Z0-9_]*\(')
 indentifier = re.compile(r'[_a-zA-Z][a-zA-Z0-9_]*')
 keyword = re.compile(r'boolean|break|continue|else|for|float|if|int|return|for|while')
 int_lit = re.compile(r'[0-9]+')
 float_lit = re.compile(r'[0-9]+|([0-9]+\.[0-9]*)|(\.[0-9]+)')
 library = re.compile(r'\#include<[0-9a-zA-Z\.\+]+>')
-
+standard = re.compile(r'using namespace std')
+string = re.compile(r'\"(.)*\"', re.DOTALL)
 arithmetic_operators = re.compile(r'\+|\-|\*|\/|\=\=')
 relational_operators = re.compile(r'\>|\>\=|\<\=|\<')
 equal_operators = re.compile(r'\=\=|\!\=')
@@ -15,20 +17,36 @@ logical_operators = re.compile(r'\&\&|\|\||\!')
 assignment_operators = re.compile(r'\=')
 print(library.match('#include<bh>'))
 end_cmd = re.compile(r'\;')
+comment = re.compile(r'//(.)*\n')
+start_inner_cmd = re.compile(r'\{')
+end_inner_cmd = re.compile(r'\}')
+start_inner_oper = re.compile(r'\(')
+end_inner_oper_or_end_func = re.compile(r'\)')
+
 
 dict = {}
-dict['whilespace'] = whitespace;
-dict['indentifier'] = indentifier
+
+dict['library'] = library
+dict['standard'] = standard
 dict['keyword'] = keyword
+dict['function'] = function
+dict['end_inner_oper_or_end_func'] = end_inner_oper_or_end_func
+
+dict['indentifier'] = indentifier
+dict['string'] = string
+dict['start_inner_cmd'] = start_inner_cmd
+dict['end_inner_cmd'] = end_inner_cmd
+
 dict['int_lit'] = int_lit
 dict['float_lit'] = float_lit
-dict['library'] = library
+dict['start_inner_oper'] = start_inner_oper
 dict['arithmetic_operators'] = arithmetic_operators
 dict['relational_operators'] = relational_operators
 dict['equal_operators'] = equal_operators
 dict['logical_operators'] = logical_operators
 dict['assignment_operators'] = assignment_operators
 dict['end_cmd'] = end_cmd
+dict['whitespace'] = whitespace;
 
 
 # def scan(text, start, current, list_type_valid, check_end, list_token):
@@ -90,7 +108,7 @@ def scan(text, current, list_token):
         stop = current
         while dict[category_must_find].fullmatch(text[current:stop+1]) == None:
             stop = stop + 1
-        while dict[category_must_find].fullmatch(text[current:stop+1]) != None:
+        while stop < len(text) and dict[category_must_find].fullmatch(text[current:stop+1]) != None:
             stop = stop + 1
         Token = []
         Token.append(text[current:stop])
@@ -111,8 +129,11 @@ def scan(text, current, list_token):
 def main():
     f = open('sample.txt', 'r', encoding='UTF-8')
     text = f.read() 
+    text = text + '\n'
     print(len(text))
-    print(scan(text, current=0,  list_token=[]))
+    result = scan(text, current=0,  list_token=[])
+    for each in result:
+        print(each)
 
 main()
 
