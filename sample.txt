@@ -1,6 +1,9 @@
-#include<iostream>
-using namespace std;
-int main(){
-	cout << "Hello world!";
-	return 0;
+class E{
+	int m;
+	int n;
+	int sum(int a, int b){
+		
+		return a*b;
+		cout<<"good day?";
+	}
 }
