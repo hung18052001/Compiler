@@ -33,7 +33,13 @@ def init_automat():
     automat.append(['Global', ['comment']])
     automat.append(['Global', ['start_inner_cmd', 'Global', 'end_inner_cmd']])
     automat.append(['Global', ['Assign', 'end_cmd']])
-
+    automat.append(['Global', ['for_key','start_inner_cmd', 'GlobalFor', 'end_inner_cmd']]) # MinhCao
+    automat.append(['GlobalFor', ['GlobalFor', 'break_key', ]]) # MinhCao
+    automat.append(['GlobalFor', ['GlobalFor', 'continue_key', ]]) # MinhCao
+    automat.append(['GlobalFor', ['start_inner_cmd', 'GlobalFor', 'end_inner_cmd']]) # MinhCao
+    automat.append(['GlobalFor', ['Global']]) # MinhCao    
+    
+    
     automat.append(['Assign', ['definition', 'double_arithmetic_operators']])
     automat.append(['Assign', ['definition', 'equal_assign', 'Expression']])
     automat.append(['Assign', ['definition','add_assign', 'Expression']])
@@ -49,7 +55,6 @@ def init_automat():
     automat.append(['Value', ['string_lit']])
 
 
-    
     automat.append(['Func', ['function', 'Parameter', 'end_oper', 'start_inner_cmd', 'Global', 'Return_state', 'end_inner_cmd']])
     automat.append(['Func', ['function', 'end_oper', 'start_inner_cmd', 'Global', 'Return_state', 'end_inner_cmd']])
     automat.append(['Func', ['function', 'Parameter', 'end_oper', 'start_inner_cmd', 'Return_state', 'end_inner_cmd']])
