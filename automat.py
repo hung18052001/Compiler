@@ -37,8 +37,8 @@ def init_automat():
     
     # MinhCao /*
     automat.append(['Global', ['for_key','start_inner_cmd', 'LobalFor', 'end_inner_cmd']]) 
-    automat.append(['LobalFor', ['LobalFor', 'break_key', ]])
-    automat.append(['LobalFor', ['LobalFor', 'continue_key', ]])
+    automat.append(['LobalFor', ['LobalFor', 'break_key']])
+    automat.append(['LobalFor', ['LobalFor', 'continue_key']])
     automat.append(['LobalFor', ['start_inner_cmd', 'LobalFor', 'end_inner_cmd']]) 
     automat.append(['LobalFor', ['Global']])  
     # MinhCao */
