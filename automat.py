@@ -35,6 +35,7 @@ def init_automat():
     automat.append(['Global', ['start_inner_cmd', 'Global', 'end_inner_cmd']])
     automat.append(['Global', ['Assign', 'end_cmd']])
 
+
     automat.append(['Assign', ['Variable', 'double_arithmetic_operators']])
     automat.append(['Assign', ['Variable', 'equal_assign', 'Expression']])
     automat.append(['Assign', ['Variable','add_assign', 'Expression']])
@@ -42,6 +43,23 @@ def init_automat():
 
     automat.append(['Variable', ['definition']])
     automat.append(['Variable', ['array']])
+
+    
+    
+
+    automat.append(['Global', ['for_key','start_inner_cmd', 'LobalFor', 'end_inner_cmd']]) 
+    automat.append(['LobalFor', ['LobalFor', 'break_key']])
+    automat.append(['LobalFor', ['LobalFor', 'continue_key']])
+    automat.append(['LobalFor', ['start_inner_cmd', 'LobalFor', 'end_inner_cmd']]) 
+    automat.append(['LobalFor', ['Global']])  
+
+    
+    
+    automat.append(['Assign', ['definition', 'double_arithmetic_operators']])
+    automat.append(['Assign', ['definition', 'equal_assign', 'Expression']])
+    automat.append(['Assign', ['definition','add_assign', 'Expression']])
+    automat.append(['Assign', ['definition','oper_assign', 'Expression']])
+
 
 
     automat.append(['Global', ['cout', 'out_oper', 'Value', 'end_cmd']])
@@ -52,7 +70,6 @@ def init_automat():
     automat.append(['Value', ['string_lit']])
 
 
-    
     automat.append(['Func', ['function', 'Parameter', 'end_oper', 'start_inner_cmd', 'Global', 'Return_state', 'end_inner_cmd']])
     automat.append(['Func', ['function', 'end_oper', 'start_inner_cmd', 'Global', 'Return_state', 'end_inner_cmd']])
     automat.append(['Func', ['function', 'Parameter', 'end_oper', 'start_inner_cmd', 'Global', 'Return_state','Global', 'end_inner_cmd']])
@@ -106,8 +123,6 @@ def init_automat():
     automat.append(['Lobal_for', ['Global']])
 
     return automat
-
-
 
 
 
