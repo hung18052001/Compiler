@@ -1,94 +1,6 @@
 import re
 from automat import init_automat
-f = open('sample.txt', 'r', encoding='UTF-8')
-def init_regex():
-    text = f.read()
-    whitespace = re.compile(r'(\s)+')
-    cout = re.compile(r'cout')
-    out_oper = re.compile(r'\<\<')
-    class_func = re.compile(r'class')
-    function = re.compile(r'[_a-zA-Z][a-zA-Z0-9_]*\(')
-    definition = re.compile(r'(\_|[a-zA-Z])([a-zA-Z0-9]|\_)*')
-    math_type = re.compile(r'int|float|string')
-    bool_type = re.compile(r'boolean')
-    break_key = re.compile(r'break')
-    continue_key = re.compile(r'continue')
-    if_key = re.compile(r'if')
-    else_key = re.compile(r'else')
-    for_key = re.compile(r'for')
-    while_key = re.compile(r'while')
-    return_key = re.compile(r'return')
-    int_lit = re.compile(r'[0-9]+')
-
-    float_lit = re.compile(r'[0-9]+|([0-9]+\.[0-9]*)|(\.[0-9]+)')
-    library = re.compile(r'\#include<[0-9a-zA-Z\.\+]+>')
-    standard = re.compile(r'using namespace std')
-    string_lit = re.compile(r'\"(.)*\"', re.DOTALL)
-    add_assign = re.compile(r'\+\=')
-    oper_assign = re.compile(r'\-\=|\*\=|\/\=')
-    add_oper = re.compile(r'\+')
-    double_arithmetic_operators = re.compile(r'\+\+|\-\-')
-    arithmetic_operators = re.compile(r'\-|\*|\/')
-    relational_operators = re.compile(r'\>|\>\=|\<\=|\<')
-    equal_oper = re.compile(r'\=\=|\!\=')
-    logical_operators = re.compile(r'\&\&|\|\|')
-    single_logical_operators = re.compile(r'\!')
-    equal_assign = re.compile(r'\=')
-    print(library.match('#include<bh>'))
-    end_cmd = re.compile(r'\;')
-    comment = re.compile(r'//(.)*\n')
-    start_inner_cmd = re.compile(r'\{')
-    end_inner_cmd = re.compile(r'\}')
-    start_oper = re.compile(r'\(')
-    end_oper = re.compile(r'\)')
-    comma = re.compile(r'\,')
-
-
-    dicts = {}
-
-    dicts['library'] = library
-    dicts['standard'] = standard
-    dicts['break_key'] = break_key
-    dicts['continue_key'] = continue_key
-    dicts['cout'] = cout
-    dicts['out_oper'] =out_oper
-    dicts['if_key'] = if_key
-    dicts['else_key'] = else_key
-    dicts['for_key'] = for_key
-    dicts['while_key'] = while_key
-    dicts['return_key'] = return_key
-    dicts['math_type'] = math_type
-    dicts['bool_type'] = bool_type
-    dicts['class_func'] = class_func
-    dicts['function'] = function
-    dicts['end_oper'] = end_oper
-
-    dicts['definition'] = definition
-    dicts['comma'] = comma
-
-    dicts['start_inner_cmd'] = start_inner_cmd
-    dicts['end_inner_cmd'] = end_inner_cmd
-
-    dicts['int_lit'] = int_lit
-    dicts['float_lit'] = float_lit
-    dicts['string_lit'] = string_lit
-    dicts['start_oper'] = start_oper
-    dicts['add_assign'] = add_assign
-    dicts['oper_assign'] = oper_assign
-    
-    dicts['double_arithmetic_operators'] = double_arithmetic_operators
-    dicts['add_oper'] = add_oper
-    dicts['arithmetic_operators'] = arithmetic_operators
-    dicts['relational_oper'] = relational_operators
-    dicts['equal_oper'] = equal_oper
-    dicts['single_logical_operators'] = single_logical_operators
-    
-    dicts['logical_operators'] = logical_operators
-    dicts['equal_assign'] = equal_assign
-    dicts['end_cmd'] = end_cmd
-    dicts['whitespace'] = whitespace;
-    return dicts
-
+from regex import init_regex
 
 
 def check_automat(automat, stack, buffers, count = 0):
@@ -96,7 +8,10 @@ def check_automat(automat, stack, buffers, count = 0):
         if(len(buffers)==0):
             return True
         return False
+    # if count >20:
+    #     return False
     if len(stack) > len(buffers) + 1:
+        # print('Noway')
         return False
     if len(buffers) > 0:
         token = stack[0];
@@ -110,7 +25,8 @@ def check_automat(automat, stack, buffers, count = 0):
                 return False
             list_valid = sorted(set(list_valid))
             for key in automat:
-                if key[0] == token and (key[1][0] == buffers[0] or key[1][0] in list_valid):
+                if key[0] == token:
+                    count = count + 1
                     new_stack = stack.copy()
                     new_stack.pop(0)
                     for i in range(len(key[1]) - 1, -1, -1):
@@ -121,9 +37,9 @@ def check_automat(automat, stack, buffers, count = 0):
         else:
             if token == buffers[0]:
                 new_stack = stack.copy()
-                print(str(len(stack))+token)
+                # print(str(len(stack))+token)
                 new_stack.pop(0)
-                print(str(len(buffers))+ token+' '+ token)
+                # print(str(len(buffers))+ token+' '+ token)
                 new_buffers = buffers.copy()
                 new_buffers.pop(0)
                 count = count + 1
@@ -192,8 +108,8 @@ def main():
     dicts = init_regex()
     
     list_token = scan(dicts, text, current=0,  list_token={})
-    for key in list_token.values():
-        print(str(key)+" "+"1")
+    for key in list_token.keys():
+        print(str(key)+" "+str(list_token[key]))
     # print(list_token)
     stack = ['Global', '$']
     buffers = []
@@ -202,8 +118,8 @@ def main():
         buffers.append(token)
     while 'whitespace' in buffers:
         buffers.remove('whitespace')
-    for token in buffers:
-        print(token)
+    # for token in buffers:
+    #     print(token)
     result = check_automat(automat, stack, buffers)
     print(result) 
 
