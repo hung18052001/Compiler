@@ -109,6 +109,7 @@ def init_automat():
     
     automat.append(['Global', ['If_state', 'Else_state']])
     automat.append(['Global', ['If_state', 'Global', 'Else_state']])
+    automat.append(['Global', ['If_state']])
     
     automat.append(['Global', ['Global', 'Global']])
 
