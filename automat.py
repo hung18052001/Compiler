@@ -55,10 +55,7 @@ def init_automat():
 
     
     
-    automat.append(['Assign', ['definition', 'double_arithmetic_operators']])
-    automat.append(['Assign', ['definition', 'equal_assign', 'Expression']])
-    automat.append(['Assign', ['definition','add_assign', 'Expression']])
-    automat.append(['Assign', ['definition','oper_assign', 'Expression']])
+    
 
 
     automat.append(['Global', ['cin', 'in_oper', 'Input', 'end_cmd']])
