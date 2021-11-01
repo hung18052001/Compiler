@@ -61,13 +61,19 @@ def init_automat():
     automat.append(['Assign', ['definition','oper_assign', 'Expression']])
 
 
-
-    automat.append(['Global', ['cout', 'out_oper', 'Value', 'end_cmd']])
-    automat.append(['Value', ['Value', 'out_oper', 'Value']])
-    automat.append(['Value', ['Expression']])
-    automat.append(['Value', ['int_lit']])
-    automat.append(['Value', ['float_lit']])
-    automat.append(['Value', ['string_lit']])
+    automat.append(['Global', ['cin', 'in_oper', 'Input', 'end_cmd']])
+    automat.append(['Input', ['Input', 'in_oper', 'Input']])
+    automat.append(['Input', ['Expression']])
+    automat.append(['Input', ['int_lit']])
+    automat.append(['Input', ['float_lit']])
+    automat.append(['Input', ['string_lit']])
+    
+    automat.append(['Global', ['cout', 'out_oper', 'Output', 'end_cmd']])
+    automat.append(['Output', ['Output', 'out_oper', 'Output']])
+    automat.append(['Output', ['Expression']])
+    automat.append(['Output', ['int_lit']])
+    automat.append(['Output', ['float_lit']])
+    automat.append(['Output', ['string_lit']])
 
 
     automat.append(['Func', ['function', 'Parameter', 'end_oper', 'start_inner_cmd', 'Global', 'Return_state', 'end_inner_cmd']])
@@ -110,18 +116,33 @@ def init_automat():
     automat.append(['Global', ['If_state', 'Else_state']])
     automat.append(['Global', ['If_state', 'Global', 'Else_state']])
     automat.append(['Global', ['If_state']])
+
+    automat.append(['Lobal_for', ['If_state', 'Else_state']])
+    automat.append(['Lobal_for', ['If_state', 'Lobal_for', 'Else_state']])
+    automat.append(['Lobal_for', ['If_state']])
+
+    automat.append(['Lobal_while', ['If_state', 'Else_state']])
+    automat.append(['Lobal_while', ['If_state', 'Lobal_while', 'Else_state']])
+    automat.append(['Lobal_while', ['If_state']])
     
     automat.append(['Global', ['Global', 'Global']])
 
     automat.append(['Global', ['While_state','start_inner_cmd', 'Lobal_while', 'end_inner_cmd']]) 
-    automat.append(['Lobal_while', ['Global', 'break_key', 'end_cmd']])
-    automat.append(['Lobal_while', ['Global', 'continue_key', 'end_cmd']])
+    automat.append(['Lobal_while', ['Lobal_while', 'Lobal_while']])
+    automat.append(['Lobal_while', ['start_inner_cmd', 'Lobal_while', 'end_inner_cmd']])
+    automat.append(['Lobal_while', ['Break_state']])
+    automat.append(['Lobal_while', ['Continue_state']])
     automat.append(['Lobal_while', ['Global']])
     
     automat.append(['Global', ['For_state','start_inner_cmd', 'Lobal_for', 'end_inner_cmd']]) 
-    automat.append(['Lobal_for', ['Global', 'break_key', 'end_cmd']])
-    automat.append(['Lobal_for', ['Global', 'continue_key', 'end_cmd']])
+    automat.append(['Lobal_for', ['Lobal_for', 'Lobal_for']])
+    automat.append(['Lobal_for', ['start_inner_cmd', 'Lobal_for', 'end_inner_cmd']])
+    automat.append(['Lobal_for', ['Break_state']])
+    automat.append(['Lobal_for', ['Continue_state']])
     automat.append(['Lobal_for', ['Global']])
+
+    automat.append(['Continue_state', ['continue_key', 'end_cmd']])
+    automat.append(['Break_state', ['break_key', 'end_cmd']])
 
     return automat
 

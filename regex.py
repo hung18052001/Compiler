@@ -1,8 +1,10 @@
 import re
 def init_regex():
     whitespace = re.compile(r'(\s)+')
+    cin = re.compile(r'cin')
     cout = re.compile(r'cout')
     out_oper = re.compile(r'\<\<')
+    in_oper = re.compile(r'\>\>')
     class_func = re.compile(r'class')
     function = re.compile(r'[_a-zA-Z][a-zA-Z0-9_]*\(')
     logic_state = re.compile(r'true|false')
@@ -51,8 +53,10 @@ def init_regex():
     dicts['continue_key'] = continue_key
     dicts['comment'] = comment
     dicts['array'] = array
+    dicts['cin'] = cin
     dicts['cout'] = cout
-    dicts['out_oper'] =out_oper
+    dicts['out_oper'] = out_oper
+    dicts['in_oper'] = in_oper
     dicts['if_key'] = if_key
     dicts['else_key'] = else_key
     dicts['for_key'] = for_key

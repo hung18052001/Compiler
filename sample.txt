@@ -1,7 +1,6 @@
 class E{
 
-	if(x == 0) cout<<y;
-	for (int i=0; arr[kk]<10; i++)
-		cout<<a[i];
-	bool t = true;
+	int x = 3;
+	if(x<3) cin<<x;
+	else x++;
 }
